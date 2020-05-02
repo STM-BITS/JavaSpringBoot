@@ -1,0 +1,39 @@
+POST http://localhost:8080/create/todolist
+Content-Type: application/json
+
+{
+  "todoListName": "Stationary"
+}
+
+###
+POST http://localhost:8080/087356EF1E9C495EA63D58A6EC24AA5C/create
+Content-Type: application/json
+
+{
+  "taskName": "Buy Milk",
+  "isPriority": false
+}
+
+
+###
+POST http://localhost:8080/45F221B79596458E9665C34B694AD166/create
+Content-Type: application/json
+
+{
+"taskName": "Buy Eraser",
+"isPriority": false
+}
+
+###
+GET http://localhost:8080/087356EF1E9C495EA63D58A6EC24AA5C/getTodos/
+
+###
+DELETE http://localhost:8080/delete/45F221B79596458E9665C34B694AD166
+
+###
+DELETE http://localhost:8080/087356EF1E9C495EA63D58A6EC24AA5C/delete/8072889A1EC04300B380D2BC6840F0E0
+
+###
+GET http://localhost:8080/viewAllTodoList
+
+###
