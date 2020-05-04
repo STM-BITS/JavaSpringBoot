@@ -37,4 +37,7 @@ public class TodoListService {
     }
 
 
+//    public List<Todo> getAllTodosForList(String todoListId) {
+//        return todoListRepository.findAllByUuid(todoListId);
+//    }
 }

@@ -12,8 +12,8 @@ public class Todo {
     @ManyToOne
     private TodoList todoList;
 
-    @Column
-    private String todoListId;
+//    @Column
+//    private String todoListId;
 
     @Column
     private String taskName;
@@ -56,13 +56,13 @@ public class Todo {
         isPriority = priority;
     }
 
-    public String getTodoListId() {
-        return todoListId;
-    }
-
-    public void setTodoListId(String todoListId) {
-        this.todoListId = todoListId;
-    }
+//    public String getTodoListId() {
+//        return todoListId;
+//    }
+//
+//    public void setTodoListId(String todoListId) {
+//        this.todoListId = todoListId;
+//    }
 
     public TodoList getTodoList() {
         return todoList;

@@ -46,13 +46,9 @@ public class TodoController {
         }
     }
 
-    @GetMapping(value = "/{todoListId}/getTodos/")
+    @GetMapping(value = "/{todoListId}/getAllTodos")
     public List<Todo> getAllTodosForList(@PathVariable String todoListId){
-        if (todoListId!= null){
-            return todoService.getAllTodosForList(todoListId);
-        }else{
-            return null;
-        }
+        return todoService.getAllTodosForList(todoListId);
     }
 
 
