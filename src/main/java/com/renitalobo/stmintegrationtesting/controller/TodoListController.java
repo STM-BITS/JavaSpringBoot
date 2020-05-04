@@ -23,22 +23,28 @@ public class TodoListController {
         }
     }
 
-    @DeleteMapping(value = "delete/{todoListId}")
+    @DeleteMapping(value = "/{todoListId}/delete")
     public void deleteList(@PathVariable String todoListId){
         if(todoListId != null){
             todoListService.deleteTodoList(todoListId);
-        }else{
+        } else {
             return;
         }
     }
 
     @GetMapping(value = "/viewAllTodoList")
-    public List<TodoList> getAllTodoList(){
+    public List<TodoList> getAllTodoList() {
         return todoListService.viewAllTodoList();
     }
 
-
-
+    @PostMapping(value = "/{todoListId}/updateTodoListName")
+    public String updateTodoListName(@RequestBody TodoList todoList, @PathVariable String todoListId) {
+        if (todoListId != null) {
+            return todoListService.updateTodoListName(todoList, todoListId);
+        } else {
+            return null;
+        }
+    }
 
 
 }

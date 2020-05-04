@@ -92,4 +92,15 @@ public class TodoService {
         return todoRepository.findByTodoList_Uuid(todoListId);
     }
 
+    public Todo updateTodoName(Todo todo, String todoId) {
+        Optional<Todo> t = todoRepository.findById(todoId);
+        Todo editTodo;
+        if (t.isPresent()) {
+            editTodo = t.get();
+        } else {
+            return null;
+        }
+        editTodo.setTaskName(todo.getTaskName());
+        return todoRepository.save(editTodo);
+    }
 }

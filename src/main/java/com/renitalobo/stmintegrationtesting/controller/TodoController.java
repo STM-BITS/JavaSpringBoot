@@ -41,15 +41,23 @@ public class TodoController {
     public Todo todoPriority(@PathVariable String todoId){
         if(todoId != null){
             return todoService.todoPriority(todoId);
-        }else{
+        } else {
             return null;
         }
     }
 
     @GetMapping(value = "/{todoListId}/getAllTodos")
-    public List<Todo> getAllTodosForList(@PathVariable String todoListId){
+    public List<Todo> getAllTodosForList(@PathVariable String todoListId) {
         return todoService.getAllTodosForList(todoListId);
     }
 
+    @PostMapping(value = "/{todoListId}/updateTodoName/{todoId}")
+    public Todo updateTodoName(@RequestBody Todo todo, @PathVariable String todoId) {
+        if (todoId != null) {
+            return todoService.updateTodoName(todo, todoId);
+        } else {
+            return null;
+        }
+    }
 
 }
