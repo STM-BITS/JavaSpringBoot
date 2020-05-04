@@ -29,18 +29,18 @@ public class TodoController {
     }
 
     @PostMapping(value = "/{todoListId}/todoStatus/{todoId}")
-    public Todo todoCompleteStatus(@RequestBody Todo todo){
-        if(todo != null){
-            return todoService.todoCompleteStatus(todo);
+    public Todo todoCompleteStatus(@PathVariable String todoId){
+        if(todoId != null){
+            return todoService.todoCompleteStatus(todoId);
         }else{
             return null;
         }
     }
 
     @PostMapping(value = "/{todoListId}/todoPriority/{todoId}")
-    public Todo todoPriority(@RequestBody Todo todo){
-        if(todo != null){
-            return todoService.todoPriority(todo);
+    public Todo todoPriority(@PathVariable String todoId){
+        if(todoId != null){
+            return todoService.todoPriority(todoId);
         }else{
             return null;
         }

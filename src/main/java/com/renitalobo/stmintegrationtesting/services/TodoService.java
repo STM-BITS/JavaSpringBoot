@@ -51,23 +51,39 @@ public class TodoService {
         }
     }
 
-    public Todo todoCompleteStatus(Todo todo){
-        if (todo.isCompleted()){
-            todo.setCompleted(false);
-            return todoRepository.save(todo);
+    public Todo todoCompleteStatus(String todoId){
+        Optional<Todo> t = todoRepository.findById(todoId);
+        Todo editTodo;
+        if (t.isPresent()){
+            editTodo = t.get();
+        }else {
+            return null;
+        }
+
+        if (editTodo.isCompleted()){
+            editTodo.setCompleted(false);
+            return todoRepository.save(editTodo);
         }else{
-            todo.setCompleted(true);
-            return todoRepository.save(todo);
+            editTodo.setCompleted(true);
+            return todoRepository.save(editTodo);
         }
     }
 
-    public Todo todoPriority(Todo todo){
-        if (todo.isPriority()){
-            todo.setPriority(false);
-            return todoRepository.save(todo);
+    public Todo todoPriority(String todoId){
+        Optional<Todo> t = todoRepository.findById(todoId);
+        Todo editTodo;
+        if (t.isPresent()){
+            editTodo = t.get();
+        }else {
+            return null;
+        }
+
+        if (editTodo.isPriority()){
+            editTodo.setPriority(false);
+            return todoRepository.save(editTodo);
         }else{
-            todo.setPriority(true);
-            return todoRepository.save(todo);
+            editTodo.setPriority(true);
+            return todoRepository.save(editTodo);
         }
     }
 
