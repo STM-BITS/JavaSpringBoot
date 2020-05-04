@@ -31,7 +31,6 @@ public class TodoService {
             String uuid = UUID.randomUUID().toString().toUpperCase().replace("-", "");
             todo.setUuid(uuid);
             todo.setCompleted(false);
-            todo.setTodoListId(currentTodoList.getUuid());
             todo.setTodoList(currentTodoList);
             return todoRepository.save(todo);
     }
@@ -72,9 +71,9 @@ public class TodoService {
         }
     }
 
-    public List<Todo> getAllTodosForList(String todoList){
-        List<Todo> todos = todoRepository.findAllByTodoListId(todoList);
-        return todos;
+
+    public List<Todo> getAllTodosForList(String todoListId) {
+        return todoRepository.findByTodoList_Uuid(todoListId);
     }
 
 }
