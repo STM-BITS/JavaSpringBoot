@@ -6,24 +6,56 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/055074D2D6B04C68ABA7C747C75590C7/create
+POST http://localhost:8080/2B8A9241E73A4819809299352DA3FC62/create
 Content-Type: application/json
 
 {
-"taskName": "Buy Pencil",
-"isPriority": false
+  "taskName": "Buy Paper",
+  "priority": false
 }
 
 ###
-GET http://localhost:8080/055074D2D6B04C68ABA7C747C75590C7/getAllTodos/
+GET http://localhost:8080/2B8A9241E73A4819809299352DA3FC62/getAllTodos/
 
 ###
-DELETE http://localhost:8080/delete/055074D2D6B04C68ABA7C747C75590C7
+DELETE http://localhost:8080/045A8675ABC94AB7B1C993D36931084B/delete
 
 ###
-DELETE http://localhost:8080/087356EF1E9C495EA63D58A6EC24AA5C/delete/8072889A1EC04300B380D2BC6840F0E0
+DELETE http://localhost:8080/870B511CD2CB4A739E7C481DC480777C/delete/9983510BEB474FD595F7DFD5C77E5986
 
 ###
 GET http://localhost:8080/viewAllTodoList
+
+###
+POST http://localhost:8080/870B511CD2CB4A739E7C481DC480777C/todoPriority/9983510BEB474FD595F7DFD5C77E5986
+Content-Type: application/json
+
+{
+  "priority": true
+}
+
+###
+POST http://localhost:8080/870B511CD2CB4A739E7C481DC480777C/todoStatus/9983510BEB474FD595F7DFD5C77E5986
+Content-Type: application/json
+
+{
+  "completed": true
+}
+
+###
+POST http://localhost:8080/045A8675ABC94AB7B1C993D36931084B/updateTodoListName
+Content-Type: application/json
+
+{
+  "todoListName": "Stationary Item"
+}
+
+###
+POST http://localhost:8080/2B8A9241E73A4819809299352DA3FC62/updateTodoName/C22FF7B2EC5343D6B54575918C807299
+Content-Type: application/json
+
+{
+  "taskName": "Buy Glue"
+}
 
 ###

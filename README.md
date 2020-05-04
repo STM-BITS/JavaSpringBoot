@@ -1,9 +1,9 @@
 # JavaSpringBoot
 A Spring boot application for todo list
 
-The application creates a todolist which contains various todos
+The application creates a todolist which contains various todos.
 
-The todos can be set as priorty and can be marked as completed. The todo can also be deleted from them list
+The todos can be set as priority and can be marked as completed. 
 
 ## Steps to execute:
 
@@ -66,12 +66,35 @@ Content-Type: application/json
 
 ---
 ### 7. Delete TodoList
-`DELETE http://localhost:8080/delete/{todoListId}`
+`DELETE http://localhost:8080/{todoListId}/delete/`
 
 
 
 ---
 ### 8. Update TodoList Name
+```
+POST http://localhost:8080/{todoListId}/updateTodoListName
+Content-Type: application/json
+
+{
+  "todoListName":"Stationary Item"
+}
+```
 
 ---
 ### 9. Update Todo Name
+
+```
+POST http://localhost:8080/{todoListId}/updateTodoName/{todoId}
+Content-Type: application/json
+
+{
+  "taskName":"Buy Glue"
+}
+```
+
+## Steps to view the H2 Console
+- Run the application locally
+- Go to <a href="http://localhost:8080/h2-console/" target="_blank">H2 Console</a>
+- Enter the username as root
+- Enter the password as stmShriReniSpa
