@@ -9,20 +9,8 @@ public class Todo {
     @Column
     private String uuid;
 
-    @ManyToOne
-    private TodoList todoList;
-
-//    @Column
-//    private String todoListId;
-
     @Column
     private String taskName;
-
-    @Column
-    private boolean isCompleted;
-
-    @Column
-    private boolean isPriority;
 
     public String getUuid() {
         return uuid;
@@ -40,35 +28,4 @@ public class Todo {
         this.taskName = taskName;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
-
-    public boolean isPriority() {
-        return isPriority;
-    }
-
-    public void setPriority(boolean priority) {
-        isPriority = priority;
-    }
-
-//    public String getTodoListId() {
-//        return todoListId;
-//    }
-//
-//    public void setTodoListId(String todoListId) {
-//        this.todoListId = todoListId;
-//    }
-
-    public TodoList getTodoList() {
-        return todoList;
-    }
-
-    public void setTodoList(TodoList todoList) {
-        this.todoList = todoList;
-    }
 }

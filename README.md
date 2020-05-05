@@ -7,90 +7,104 @@ The todos can be set as priority and can be marked as completed.
 
 ## Steps to execute:
 
-### 1. Create Todo List
+### 1. Create Todo 
 ```
-POST http://localhost:8080/create/todolist
+POST http://localhost:8080/create
 Content-Type: application/json
 
 {
-  "todoListName": "Stationary"
+  "taskName": "Go for Walk"
 }
 ```
 
+###### Response Structure
+Request 1
+
+```
+POST http://localhost:8080/create
+Content-Type: application/json
+
+{
+  "taskName": "Go for Walk"
+}
+```
+##### Output Response Structure
+```
+{
+  "uuid": "C9D8B2CCB48D4D2B9858EBE777C6257D",
+  "taskName": "Go for Walk"
+}
+```
+
+Request 2
+```
+POST http://localhost:8080/create
+Content-Type: application/json
+
+{
+  "taskName": "Complete Assignment"
+}
+```
+##### Output Response Structure
+```
+{
+  "uuid": "BA008DE11A5843B3B2A3EBC2857CA907",
+  "taskName": "Complete Assignment"
+}
+
+```
+Request 3
+```
+POST http://localhost:8080/create
+Content-Type: application/json
+
+{
+  "taskName": "Watch Series"
+}
+```
+##### Output Response Structure
+
+```
+{
+  "uuid": "54E3083AC5EB49AFB27DABCBF0CC0731",
+  "taskName": "Watch Series"
+}
+```
 ---
-### 2. Add Todo
-```
-POST http://localhost:8080/{todoListId}/create
-Content-Type: application/json
+### 2. Get List of All Todos 
+``` GET http://localhost:8080/getAllTodos```
 
-{
-    "taskName": "Buy Marker",
-    "priority": false
-}
-```
+##### Response Structure
+Request: 
+``` GET http://localhost:8080/getAllTodos```
 
+##### Output Response Structure
+```
+[
+  {
+    "uuid": "C9D8B2CCB48D4D2B9858EBE777C6257D",
+    "taskName": "Go for Walk"
+  },
+  {
+    "uuid": "BA008DE11A5843B3B2A3EBC2857CA907",
+    "taskName": "Complete Assignment"
+  },
+  {
+    "uuid": "54E3083AC5EB49AFB27DABCBF0CC0731",
+    "taskName": "Watch Series"
+  }
+]
+```
 ---
 ### 3. Delete Todo
-`DELETE http://localhost:8080/{todoListId}/delete/{todoId}`
+``` DELETE http://localhost:8080/delete/{todoId}```
 
----
-### 4. Change the Priority of todo
+Request 1: 
+``` DELETE http://localhost:8080/delete/54E3083AC5EB49AFB27DABCBF0CC0731```
+
+##### Output Response Structure
 ```
-POST http://localhost:8080/{todoListId}/todoPriority/{todoId}
-Content-Type: application/json
-
-{
-    "priority": true
-}
-```
-
----
-### 5. Change the Completion Status of todo
-
-```
-POST http://localhost:8080/{todoListId}/todoStatus/{todoId}
-Content-Type: application/json
-
-{
-   "completed": true
-}
-```
-
-
----
-### 6. View List of Todo for a particular TodoList
-
-`GET http://localhost:8080/{todoListId}/getAllTodos/`
-
-
-
----
-### 7. Delete TodoList
-`DELETE http://localhost:8080/{todoListId}/delete/`
-
-
-
----
-### 8. Update TodoList Name
-```
-POST http://localhost:8080/{todoListId}/updateTodoListName
-Content-Type: application/json
-
-{
-  "todoListName":"Stationary Item"
-}
-```
-
----
-### 9. Update Todo Name
-
-```
-POST http://localhost:8080/{todoListId}/updateTodoName/{todoId}
-Content-Type: application/json
-
-{
-  "taskName":"Buy Glue"
-}
+Deleted
 ```
 
 ## Steps to view the H2 Console
