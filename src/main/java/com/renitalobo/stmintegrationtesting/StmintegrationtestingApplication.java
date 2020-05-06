@@ -20,7 +20,8 @@ public class StmintegrationtestingApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/*")
                         .allowedOrigins("*")
-                        .allowedMethods("*");
+                        .allowedHeaders("Access-Control-Allow-Origin", "*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE");
             }
         };
     }
