@@ -14,9 +14,12 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.renitalobo.stmintegrationtesting.controller.TodoController;
 import com.renitalobo.stmintegrationtesting.model.Todo;
 import org.junit.jupiter.api.Test;
 
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -57,23 +60,7 @@ public class TestingWebApplication {
     }
 
     @Test
-    public void shouldReturnDefaultMessage() throws Exception {
-
-            String uri = "http://localhost:8080/getAllTodos";
-    MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(uri)
-            .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
-
-        int status = mvcResult.getResponse().getStatus();
-        assertEquals(200, status);
-
-//        String content = mvcResult.getResponse().getContentAsString();
-//        Todo[] todolist = mapFromJson(content, Todo[].class);
-//        assertTrue(todolist.length > 0);
-
-    }
-
-    @Test
-    public void shouldReturnDefaultMessage2() throws Exception {
+    public void createServiceTest() throws Exception {
             String uri = "http://localhost:8080/create";
             Todo todo = new Todo();
             todo.setTaskName("Go for a walk!");
@@ -84,18 +71,44 @@ public class TestingWebApplication {
 
             int status = mvcResult.getResponse().getStatus();
             assertEquals(200, status);
-//            String content = mvcResult.getResponse().getContentAsString();
-//            assertEquals( content, "Product is created successfully");
+            String content = mvcResult.getResponse().getContentAsString();
+            assertTrue( content.contains(todo.getTaskName()));
     }
 
     @Test
-    public void deleteProduct() throws Exception {
-        String uri = "http://localhost:8080/delete/2";
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
+    public void getAllTodosServiceTest() throws Exception {
+
+        String uri = "http://localhost:8080/getAllTodos";
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
+
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
+
         String content = mvcResult.getResponse().getContentAsString();
-        assertEquals(content, "Internal Error occurred");
+        Todo[] todolist = mapFromJson(content, Todo[].class);
+        assertTrue(todolist.length > 0);
+    }
+
+    @Test
+    public void deleteServiceTest() throws Exception {
+
+        String uri = "http://localhost:8080/create";
+        Todo todo = new Todo();
+        todo.setTaskName("Go for a walk!");
+        String inputJson = mapToJson(todo);
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+
+        String content = mvcResult.getResponse().getContentAsString();
+        Todo todolist = mapFromJson(content, Todo.class);
+
+        uri = "http://localhost:8080/delete/"+todolist.getUuid();
+        mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+        content = mvcResult.getResponse().getContentAsString();
+        assertEquals( "Deleted", content);
     }
 }
 
