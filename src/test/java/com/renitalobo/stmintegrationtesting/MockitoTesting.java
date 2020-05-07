@@ -118,7 +118,7 @@ public class MockitoTesting {
     }
 
     @Test
-    public void delete_deleteVehicle_Returns204Status() throws Exception {
+    public void delete_deleteTodos() throws Exception {
         String uuid = "AD23E5R98EFT3SL00";
 
         TodoService serviceSpy = Mockito.spy(todoService);
