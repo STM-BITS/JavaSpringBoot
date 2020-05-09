@@ -72,22 +72,35 @@ public class TestingWebApplication {
             int status = mvcResult.getResponse().getStatus();
             assertEquals(200, status);
             String content = mvcResult.getResponse().getContentAsString();
-            assertTrue( content.contains(todo.getTaskName()));
+            Todo todoreturn = mapFromJson(content, Todo.class);
+            assertEquals(todoreturn.getTaskName(), todo.getTaskName());
     }
 
     @Test
     public void getAllTodosServiceTest() throws Exception {
 
-        String uri = "http://localhost:8080/getAllTodos";
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(uri)
+        String uri = "http://localhost:8080/create";
+        Todo todo = new Todo();
+        todo.setTaskName("Go for a walk!");
+
+        String inputJson = mapToJson(todo);
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson)).andReturn();
+        String content = mvcResult.getResponse().getContentAsString();
+        Todo todoreturn = mapFromJson(content, Todo.class);
+
+        uri = "http://localhost:8080/getAllTodos";
+        mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
 
-        String content = mvcResult.getResponse().getContentAsString();
+        content = mvcResult.getResponse().getContentAsString();
         Todo[] todolist = mapFromJson(content, Todo[].class);
-        assertTrue(todolist.length > 0);
+        assertEquals(1, todolist.length);
+        assertEquals(todolist[0].getUuid(),todoreturn.getUuid());
+        assertEquals(todolist[0].getTaskName(),todoreturn.getTaskName());
     }
 
     @Test
