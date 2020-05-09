@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.renitalobo.stmintegrationtesting.controller.TodoController;
 import com.renitalobo.stmintegrationtesting.model.Todo;
 import com.renitalobo.stmintegrationtesting.services.TodoService;
+import org.hibernate.mapping.Any;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,7 @@ import java.util.List;
 
 import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -39,18 +39,9 @@ public class MockitoTesting {
     @Autowired
     MockMvc mockMvc;
 
-    /*
-     * Jackson mapper for Object -> JSON conversion
-     */
     @Autowired
     ObjectMapper mapper;
 
-    /*
-     * We use @MockBean because the WebApplicationContext does not provide
-     * any @Component, @Service or @Repository beans instance/bean of this service
-     * in its context. It only loads the beans solely required for testing the
-     * controller.
-     */
     @MockBean
     TodoService todoService;
 
@@ -58,9 +49,8 @@ public class MockitoTesting {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(obj);
     }
-    protected <T> T mapFromJson(String json, Class<T> clazz)
-            throws IOException {
-
+    protected <T> T mapFromJson(String json, Class<T> clazz) throws IOException
+    {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(json, clazz);
     }
@@ -78,7 +68,6 @@ public class MockitoTesting {
         todoList.add(todo1);
         todoList.add(todo2);
 
-        // Mocking out the todo service
         Mockito.when(todoService.getAllTodosForList()).thenReturn(todoList);
 
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/getAllTodos")
@@ -92,7 +81,6 @@ public class MockitoTesting {
         assertEquals("Go for a Walk!", todolist[0].getTaskName());
         assertEquals("O90DEPADE564W4W83", todolist[1].getUuid());
         assertEquals("Go for Swimming!", todolist[1].getTaskName());
-
     }
 
     @Test
@@ -103,7 +91,6 @@ public class MockitoTesting {
 
         Mockito.when(todoService.addTodo(Mockito.any(Todo.class))).thenReturn(todo);
 
-        // Build post request with todo object payload
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/create")
                 .contentType(MediaType.APPLICATION_JSON_VALUE).accept(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8").content(this.mapper.writeValueAsBytes(todo));
@@ -114,7 +101,6 @@ public class MockitoTesting {
         assertEquals("AD23E5R98EFT3SL00", todoreturn.getUuid());
         assertEquals("Go for a Walk!", todoreturn.getTaskName());
         assertEquals(content,this.mapper.writeValueAsString(todoreturn));
-
     }
 
     @Test
@@ -122,11 +108,13 @@ public class MockitoTesting {
         String uuid = "AD23E5R98EFT3SL00";
 
         TodoService serviceSpy = Mockito.spy(todoService);
-        Mockito.doReturn(new String("Deleted")).when(serviceSpy).deleteTodo(uuid);
+
+        Mockito.doReturn("Deleted").when(serviceSpy).deleteTodo(uuid);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/delete/AD23E5R98EFT3SL00")
                 .contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 
         verify(todoService, times(1)).deleteTodo(uuid);
     }
+
 }
